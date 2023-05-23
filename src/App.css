@@ -1,0 +1,54 @@
+
+.app {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	height: 100vh;
+	justify-content: center;
+}
+
+.sidebar-toggle {
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+	border: none;
+	font-size: 1.7rem;
+	color: $clr-secondary;
+	position: absolute;
+	top: 1rem;
+	left: 450px;
+	cursor: pointer;
+	z-index: 999;
+}
+
+.sidebar-toggle svg {
+	display: block;
+}
+
+/* Animation btn-menu */
+
+.btn-menu-enter {
+	left: 1rem;
+}
+
+.btn-menu-enter-active {
+	left: 450px;
+	transition: left 500ms;
+}
+
+.btn-menu-exit {
+	left: 450px;
+}
+
+.btn-menu-exit-active {
+	left: 1rem;
+	transition: left 500ms;
+}
+
+.btn-menu-exit-done {
+	left: 1rem;
+}
+
+main {
+	grid-column: span 5;
+	padding: 1rem;
+}

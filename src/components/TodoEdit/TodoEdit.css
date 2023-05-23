@@ -1,0 +1,21 @@
+.todo-edit {
+   display: flex;
+   gap: 1rem;
+   /* border: 1px solid red; */
+}
+
+.todo-edit input {
+	border: none;
+   border-radius: 2px;
+   padding: .3rem;
+   font-family: inherit;
+   width: 400px;
+}
+
+.todo-edit button {
+   border: none;
+   color: white;
+   background-color: var(--clr-secondary);
+   border-radius: 2px;
+   cursor: pointer;
+}

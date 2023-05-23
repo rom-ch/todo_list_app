@@ -1,0 +1,57 @@
+.sidebar {
+	background-color: var(--clr-primary);
+	padding: 3rem 1rem;
+	color: white;
+	position: relative;
+	width: 500px;
+}
+
+/* Toggle animation */
+
+.toggle-appear {
+	opacity: 0;
+	translate: -100%;
+}
+
+.toggle-appear-active {
+	opacity: 1;
+	translate: 0;
+	transition: opacity 500ms ease-in-out, translate 500ms ease-in-out;
+}
+
+.toggle-appear-done {
+	opacity: 1;
+	translate: 0;
+}
+
+.toggle-enter {
+	opacity: 0;
+	translate: -100%;
+}
+
+.toggle-enter-active {
+	opacity: 1;
+	translate: 0;
+	transition: opacity 500ms ease-in-out, translate 500ms ease-in-out;
+}
+
+.toggle-enter-done {
+	opacity: 1;
+	translate: 0;
+}
+
+.toggle-exit {
+	opacity: 1;
+	translate: 0;
+}
+
+.toggle-exit-active {
+	opacity: 0;
+	translate: -100%;
+	transition: opacity 500ms ease-in-out, translate 500ms ease-in-out;
+}
+
+.toggle-exit-done {
+	opacity: 0;
+	translate: -100%;
+}
