@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TodoCreate from "./components/TodoCreate/TodoCreate";
 import Button from "./components/Button/Button";
 import TodoList from "./components/TodoList/TodoList";
+import TodoContext from "./context/todo";
 import "./App.css";
 
 function App() {
 	const [showSidebar, setShowSidebar] = useState(true);
 	const [showCreate, setShowCreate] = useState(false);
+
+	const { fetchTodos } = useContext(TodoContext);
+
+	useEffect(() => {
+		fetchTodos();
+	}, [fetchTodos]);
 
 	const handleClick = () => {
 		setShowSidebar(!showSidebar);

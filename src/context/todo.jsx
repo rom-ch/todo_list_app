@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuid } from "uuid";
 
@@ -7,34 +7,61 @@ const TodoContext = createContext();
 function Provider({ children }) {
 	const [todos, setTodos] = useState([]);
 
-	useEffect(() => {
-		setTodos([
-			{ id: 1, title: "Task 1" },
-			{ id: 2, title: "Task 2" },
-			{ id: 3, title: "Task 3" },
-			{ id: 4, title: "Task 4" },
-		]);
+	const fetchTodos = useCallback(async () => {
+		try {
+			const response = await fetch("http://localhost:3002/todos");
+			const data = await response.json();
+			setTodos(data);
+		} catch (error) {
+			console.log(error);
+		}
 	}, []);
 
-	const createTodo = title => {
-		const updatedTodos = [
-			...todos,
-			{
-				id: uuid(),
-				title,
-			},
-		];
+	const createTodo = async title => {
+		try {
+			const response = await fetch("http://localhost:3002/todos", {
+				method: "POST",
+				mode: "cors",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify({ title, id: uuid() }),
+			});
+			const data = await response.json();
+			const updatedTodos = [...todos, data];
 
-		setTodos(updatedTodos);
+			setTodos(updatedTodos);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	const deleteTodoById = id => {
+	const deleteTodoById = async id => {
+		try {
+			const response = await fetch(`http://localhost:3002/todos/${id}`, {
+				method: "DELETE",
+				mode: "cors",
+			});
+		} catch (error) {
+			console.log(error);
+		}
+
 		const updatedTodos = todos.filter(todo => todo.id !== id);
 
 		setTodos(updatedTodos);
 	};
 
-	const editTodoById = (id, newTitle) => {
+	const editTodoById = async (id, newTitle) => {
+		try {
+			const response = await fetch(`http://localhost:3002/todos/${id}`, {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ title: newTitle }),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+
 		const updatedTodos = todos.map(todo => {
 			if (todo.id === id) {
 				return {
@@ -49,6 +76,7 @@ function Provider({ children }) {
 	};
 
 	const value = {
+		fetchTodos,
 		createTodo,
 		deleteTodoById,
 		editTodoById,
